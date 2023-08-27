@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SignupOrdinary</class>
+ <widget class="QMainWindow" name="SignupOrdinary">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1056</width>
+    <height>710</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="btn_back">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>back</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>20</y>
+      <width>690</width>
+      <height>640</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox
+{
+border-radius: 10px;
+background-color: rgb(43, 43, 43);
+}
+
+QLineEdit
+{
+background-color: rgb(81, 81, 81);
+border: none;
+border-radius: 5px;
+border-bottom: 2px solid #9c9c9c;
+color: rgb(214, 214, 214);
+}
+
+QPushButton
+{
+background-color: rgb(68, 68, 68);
+color: rgb(214, 214, 214);
+border-radius: 5px;
+}
+
+QDateEdit
+{
+background-color: rgb(81, 81, 81);
+border: none;
+border-radius: 5px;
+border-bottom: 2px solid #9c9c9c;
+color: rgb(214, 214, 214);
+}
+
+QTextEdit
+{
+background-color: rgb(81, 81, 81);
+border: none;
+border-radius: 5px;
+border-bottom: 2px solid #9c9c9c;
+color: rgb(214, 214, 214);
+}
+</string>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>100</y>
+       <width>111</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Consolas</family>
+       <pointsize>20</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 66, 198);</string>
+     </property>
+     <property name="text">
+      <string>signup</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>30</y>
+       <width>70</width>
+       <height>70</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>../../icons/icons8-signup-64(7).png</pixmap>
+     </property>
+    </widget>
+    <widget class="QDateEdit" name="dateEdit">
+     <property name="geometry">
+      <rect>
+       <x>265</x>
+       <y>180</y>
+       <width>160</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_signup">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>510</y>
+       <width>90</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Dubai</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(0, 66, 198);
+</string>
+     </property>
+     <property name="text">
+      <string>done</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../icons/icons8-done-50.png</normaloff>../../icons/icons8-done-50.png</iconset>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="txt_bio">
+     <property name="geometry">
+      <rect>
+       <x>265</x>
+       <y>320</y>
+       <width>160</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="placeholderText">
+      <string>biography</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>265</x>
+       <y>380</y>
+       <width>160</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Dubai</family>
+       <pointsize>9</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(0, 66, 198);</string>
+     </property>
+     <property name="text">
+      <string>import profile image</string>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_shopassword">
+     <property name="geometry">
+      <rect>
+       <x>620</x>
+       <y>252</y>
+       <width>31</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: none;
+background-color: transparent;
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../icons/icons8-eye-24.png</normaloff>../../icons/icons8-eye-24.png</iconset>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ln_password">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>250</y>
+       <width>160</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+     <property name="placeholderText">
+      <string> password</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ln_link">
+     <property name="geometry">
+      <rect>
+       <x>265</x>
+       <y>250</y>
+       <width>160</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="placeholderText">
+      <string> link</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ln_name">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>180</y>
+       <width>160</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="placeholderText">
+      <string> name</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ln_country">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>250</y>
+       <width>160</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="placeholderText">
+      <string> country</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ln_username">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>180</y>
+       <width>160</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string> username</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ln_number">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>320</y>
+       <width>160</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string> phonenumber</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="le_header">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>320</y>
+       <width>160</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="placeholderText">
+      <string> header</string>
+     </property>
+    </widget>
+    <zorder>ln_link</zorder>
+    <zorder>ln_name</zorder>
+    <zorder>ln_country</zorder>
+    <zorder>ln_username</zorder>
+    <zorder>ln_number</zorder>
+    <zorder>le_header</zorder>
+    <zorder>ln_password</zorder>
+    <zorder>btn_shopassword</zorder>
+    <zorder>label_2</zorder>
+    <zorder>label</zorder>
+    <zorder>dateEdit</zorder>
+    <zorder>btn_signup</zorder>
+    <zorder>txt_bio</zorder>
+    <zorder>pushButton</zorder>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1056</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
