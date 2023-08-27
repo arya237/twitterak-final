@@ -408,3 +408,166 @@ void menu::fill_tweetswidget()
     }
 }
 
+
+void menu::on_rbtn_users_clicked()
+{
+    ui->listWidget_showusersandhastags->clear();
+
+    for(auto i : users)
+    {
+        ui->listWidget_showusersandhastags->addItem(QString::fromStdString( i.second->get_username()));
+    }
+}
+
+void menu::on_btn_showprofile_clicked()
+{
+    string username = ui->le_showprofile->text().toStdString();
+
+    if(username[0] == '@')
+    {
+        username = username.substr(1, username.size());
+    }
+
+    if(check_user(username))
+    {
+        showprofile *p = new showprofile(users[username], currentuser, users);
+        p->show();
+
+        ui->listWidget_followings->clear();
+
+        for(int i = 0; i < currentuser->display_followings(0); i++)
+        {
+            ui->listWidget_followings->addItem(QString::fromStdString(currentuser->get_followings(i)));
+
+        }
+    }
+
+    else QMessageBox::warning(this, "profile", "this user not found!");
+
+    ui->le_showprofile->clear();
+
+}
+
+
+
+void menu::on_btn_retweet_clicked()
+{
+    string username = ui->le_usernameretweet->text().toStdString();
+    int index = ui->le_numberretweet->text().toInt();
+    string date = SystemCurrentTime();
+    QMessageBox q;
+
+    if(username[0] == '@')
+    {
+        username = username.substr(1, username.size());
+    }
+
+
+
+    if(check_user(username) && checknum(index, users[username]))
+    {
+        currentuser->Retweet(users[username], index, date);
+        stor_tweet_infile();
+
+        fill_tweetswidget();
+    }
+
+    else q.warning(this, "retweet", "user or numbertweet not exist!");
+
+    ui->le_numberretweet->clear();
+    ui->le_usernameretweet->clear();
+}
+
+void menu::on_btn_follow_clicked()
+{
+    string username = ui->le_follow->text().toStdString();
+    QMessageBox q;
+
+    if(username[0] == '@')
+    {
+        username = username.substr(1, username.size());
+    }
+
+
+    if(check_user(username))
+    {
+        currentuser->add_following(users[username]);
+        store_follower_following_infile();
+
+        fill_followingswidget();
+
+    }
+
+    else q.warning(this, "follow", "user not found!");
+
+
+
+    ui->le_follow->clear();
+}
+
+void menu::on_btn_logout_clicked()
+{
+    this->close();
+}
+
+void menu::on_btn_deletetweet_clicked()
+{
+    int index = ui->le_deletetweet->text().toInt();
+    QMessageBox q;
+
+
+    if(checknum(index, currentuser))
+    {
+        for(auto i: hashtags)
+        {
+            for(int j = 0; j < i.second.size(); j++)
+            {
+                if(i.second[j] == currentuser->get_tweet(index))
+                {
+                    i.second.erase(i.second.begin() + j);
+                    break;
+                }
+            }
+
+            if(i.second.size() == 0)
+            {
+                hashtags.erase(i.first);
+            }
+        }
+
+        currentuser->delete_tweet(index);
+        stor_tweet_infile();
+        write_hashtag_infile();
+
+        fill_tweetswidget();
+    }
+
+    else q.warning(this, "deleting tweet", "this tweet not exist!");
+
+    ui->le_deletetweet->clear();
+    ui->le_deletetweet->hide();
+
+}
+
+void menu::on_btn_sendmention_clicked()
+{
+    string username = ui->le_usernamemention->text().toStdString();
+    int index = ui->le_numbertweetemtion->text().toInt();
+
+    if(check_user(username) && checknum(index, users[username]))
+    {
+        string post = ui->le_mentionpost->text().toStdString();
+        string date = SystemCurrentTime();
+
+        users[username]->set_mention(post, date, index);
+    }
+
+    stor_tweet_infile();
+
+    ui->le_mentionpost->clear();
+
+    ui->le_numbertweetemtion->clear();
+
+    ui->le_usernamemention->clear();
+
+}

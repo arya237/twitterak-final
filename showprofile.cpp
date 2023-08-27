@@ -3,13 +3,14 @@
 #include "user.hpp"
 #include "QMessageBox"
 
-showprofile::showprofile(user* porpose, user* my, QWidget *parent) :
+showprofile::showprofile(user* target, user* my, unordered_map<string, user*> & porpose, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::showprofile)
 {
     ui->setupUi(this);
-    target = porpose;
+    this->target = target;
     me = my;
+    users = porpose;
     set();
 }
 

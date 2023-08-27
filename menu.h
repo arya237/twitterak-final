@@ -47,6 +47,20 @@ private slots:
 
     void on_btn_like_clicked();
 
+    void on_rbtn_users_clicked();
+
+    void on_btn_showprofile_clicked();
+
+    void on_btn_retweet_clicked();
+
+    void on_btn_follow_clicked();
+
+    void on_btn_logout_clicked();
+
+    void on_btn_deletetweet_clicked();
+
+    void on_btn_sendmention_clicked();
+
 private:
     Ui::menu *ui;
     user* currentuser;

@@ -13,7 +13,7 @@ class showprofile : public QWidget
     Q_OBJECT
 
 public:
-    explicit showprofile( user*, user*, QWidget *parent = nullptr);
+    explicit showprofile(user*, user*, unordered_map<string, user*> &, QWidget *parent = nullptr);
     ~showprofile();
     void set();
 
@@ -25,6 +25,7 @@ private:
     Ui::showprofile *ui;
     user * target;
     user * me;
+    unordered_map<string, user*> users;
 };
 
 #endif // SHOWPROFILE_H
