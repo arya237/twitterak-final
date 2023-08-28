@@ -163,7 +163,7 @@ color: rgb(214, 214, 214);</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../icons/icons8-login-50.png</normaloff>../../icons/icons8-login-50.png</iconset>
+      <normaloff>../../../icons/icons8-login-50.png</normaloff>../../../icons/icons8-login-50.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
@@ -184,7 +184,7 @@ color: rgb(214, 214, 214);</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../icons/icons8-eye-24.png</normaloff>../../icons/icons8-eye-24.png</iconset>
+      <normaloff>../../../icons/icons8-eye-24.png</normaloff>../../../icons/icons8-eye-24.png</iconset>
     </property>
    </widget>
   </widget>

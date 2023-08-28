@@ -169,7 +169,7 @@ color: rgb(214, 214, 214);
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>../../icons/icons8-done-50.png</normaloff>../../icons/icons8-done-50.png</iconset>
+       <normaloff>../../../icons/icons8-done-50.png</normaloff>../../../icons/icons8-done-50.png</iconset>
      </property>
     </widget>
     <widget class="QTextEdit" name="txt_bio">
@@ -197,7 +197,7 @@ color: rgb(214, 214, 214);
      <property name="geometry">
       <rect>
        <x>265</x>
-       <y>380</y>
+       <y>390</y>
        <width>160</width>
        <height>35</height>
       </rect>
@@ -246,7 +246,7 @@ background-color: transparent;
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>../../icons/icons8-eye-24.png</normaloff>../../icons/icons8-eye-24.png</iconset>
+       <normaloff>../../../icons/icons8-eye-24.png</normaloff>../../../icons/icons8-eye-24.png</iconset>
      </property>
     </widget>
     <widget class="QLineEdit" name="ln_password">
@@ -367,14 +367,26 @@ background-color: transparent;
        <pointsize>10</pointsize>
       </font>
      </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
      <property name="text">
       <string/>
      </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="cursorPosition">
+      <number>0</number>
+     </property>
      <property name="placeholderText">
       <string> phonenumber</string>
+     </property>
+     <property name="clearButtonEnabled">
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QLineEdit" name="le_header">
@@ -395,6 +407,114 @@ background-color: transparent;
       <string> header</string>
      </property>
     </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>190</y>
+       <width>16</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(216, 45, 53);</string>
+     </property>
+     <property name="text">
+      <string>*</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>190</y>
+       <width>16</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(216, 45, 53);</string>
+     </property>
+     <property name="text">
+      <string>*</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>330</y>
+       <width>16</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(216, 45, 53);</string>
+     </property>
+     <property name="text">
+      <string>*</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>260</y>
+       <width>16</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(216, 45, 53);</string>
+     </property>
+     <property name="text">
+      <string>*</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_warning">
+     <property name="geometry">
+      <rect>
+       <x>445</x>
+       <y>290</y>
+       <width>241</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(220, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>upser case, lower case, number,character </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_warningusername">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>150</y>
+       <width>121</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(220, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>username is invalid!</string>
+     </property>
+    </widget>
     <zorder>ln_link</zorder>
     <zorder>ln_name</zorder>
     <zorder>ln_country</zorder>
@@ -409,6 +529,12 @@ background-color: transparent;
     <zorder>btn_signup</zorder>
     <zorder>txt_bio</zorder>
     <zorder>pushButton</zorder>
+    <zorder>label_3</zorder>
+    <zorder>label_4</zorder>
+    <zorder>label_5</zorder>
+    <zorder>label_6</zorder>
+    <zorder>lbl_warning</zorder>
+    <zorder>lbl_warningusername</zorder>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

@@ -9,7 +9,8 @@ SignupOrdinary::SignupOrdinary(QWidget *parent) :
     ui(new Ui::SignupOrdinary)
 {
     ui->setupUi(this);
-    //ui->lbl_warning->hide();
+    ui->lbl_warning->hide();
+    ui->lbl_warningusername->hide();
 }
 
 SignupOrdinary::~SignupOrdinary()
@@ -54,21 +55,107 @@ void SignupOrdinary::on_btn_signup_clicked()
 
 void SignupOrdinary::on_ln_password_textChanged(const QString &arg1)
 {
-//    if(ui->ln_password->text().size() < 8)
-//    {
-//        ui->lbl_warning->show();
-//        ui->btn_signup->setEnabled(false);
-//    }
+    if(ui->ln_password->text().size() < 8)
+    {
+        ui->lbl_warning->show();
+        ui->btn_signup->setEnabled(false);
+    }
 
-//    else ui->lbl_warning->hide();
+    else ui->lbl_warning->hide();
 
-//    if(!ui->lbl_warning->isVisible())
-//    {
-//        ui->btn_signup->setEnabled(true);
-//    }
+    if(!ui->lbl_warning->isVisible())
+    {
+        ui->btn_signup->setEnabled(true);
+    }
 }
 
 void SignupOrdinary::on_pushButton_clicked()
 {
     profile = QFileDialog::getOpenFileName(this, "open", "picture", "image(*.jpg)").toStdString();
+}
+
+bool SignupOrdinary::validateuser(string usernmae)
+{
+    twitterak t;
+
+    t.read_file();
+
+    if(t.validateusername(usernmae))
+    {
+        return 1;
+    }
+
+    else return 0;
+}
+
+bool SignupOrdinary::validatepass(string password)
+{
+    bool charflag = 0, upcaseflag = 0, lowcaseflag = 0, numflag = 0;
+
+    try
+    {
+
+        for(int i : password)
+        {
+            if((i >= 33 && i <= 47 ) || ( 58 <= i && i <= 64) || i == 32)
+            {
+                charflag = 1;
+            }
+
+            if(i >= 48 && i <= 57)
+            {
+                numflag = 1;
+            }
+
+            if(i >= 65 && i <= 90)
+            {
+                upcaseflag = 1;
+            }
+
+            if(i >= 97 && i <= 122)
+            {
+                lowcaseflag = 1;
+            }
+        }
+
+        if(charflag && lowcaseflag && upcaseflag && numflag)
+        {
+            return 0;
+        }
+
+        else throw std::invalid_argument
+            ("! Password must have at least 8 digit and lowercaseand uppercase and number and character.");
+    }
+
+    catch (invalid_argument &e)
+    {
+        cout << e.what() << endl;
+        return 1;
+    }
+
+}
+
+void SignupOrdinary::on_btn_shopassword_clicked()
+{
+    if(ui->ln_password->echoMode() == QLineEdit::Password)
+    {
+        ui->ln_password->setEchoMode(QLineEdit::Normal);
+    }
+
+    else ui->ln_password->setEchoMode(QLineEdit::Password);
+}
+
+void SignupOrdinary::on_ln_username_textChanged(const QString &arg1)
+{
+    if(validateuser(ui->ln_username->text().toStdString()))
+    {
+        ui->lbl_warningusername->show();
+        ui->btn_signup->setEnabled(false);
+    }
+
+    else
+    {
+        ui->lbl_warningusername->hide();
+        ui->btn_signup->setEnabled(true);
+    }
 }

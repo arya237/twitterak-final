@@ -1177,6 +1177,7 @@ void twitterak::get_from_file()
         {
             string username;
 
+
             input >> username;
 
             if(username == "")
@@ -1185,15 +1186,15 @@ void twitterak::get_from_file()
             }
 
             while(1)
-            {   
-                string tweet, likes, date, index;
+            {
+                string tweet, likes, date, index, mention, mentiondate, nothing, liker;
                 stringstream toindex;
                 int indx;
 
                 input >> index;
 
                 if(index == "****")
-                {   
+                {
                     input.ignore(1);
                     break;
                 }
@@ -1205,7 +1206,7 @@ void twitterak::get_from_file()
                 getline(input, tweet);
 
                 tweet = tweet.substr(1, tweet.size());
-                
+
                 getline(input, date);
 
                 input >>likes;
@@ -1215,16 +1216,54 @@ void twitterak::get_from_file()
                 users[username]->Set_filetweet(tweet, date);
 
                 while(1)
-                {   
+                {
                     input >>likes;
 
                     if(likes == "----")
-                    {   
+                    {
                         input.ignore(1);
                         break;
                     }
-                    
+
                     users[username]->fget_like(users[likes], indx);
+                }
+
+                getline(input, mention);
+
+                int indexmention = 1;
+
+                while(1)
+                {
+                    getline(input, mention);
+
+                    if(mention == "====")
+                    {
+                        break;
+                    }
+
+                    getline(input, mentiondate);
+                    getline(input, nothing);
+
+                    mentiondate += '\n';
+
+                    users[username]->set_mention(mention, mentiondate, indx);
+
+                    input >> likes;
+
+                    while(1)
+                    {
+                        input >> liker;
+
+                        if(liker == "&&&&")
+                        {
+                            input.ignore(1);
+                            break;
+                        }
+
+                        users[liker]->fmention_like(users[username], indx, indexmention);
+                    }
+
+                    indexmention++;
                 }
             }
         }
@@ -1344,33 +1383,64 @@ void twitterak::read_hashtag_fromfile()
 
     if(output.is_open())
     {
-        string hashtags, temp;
+        string hashtag, temp;
         tweet *post = nullptr;
 
-        while(output >> hashtags)
-        {   
-            
-            hashtags.pop_back();
+        while(getline(output, hashtag))
+        {
+
+            hashtag.pop_back();
 
 
             while(getline(output, temp))
-            {  
+            {
                 post = new tweet;
 
                 if(temp == "------------")
-                {   
+                {
                     break;
                 }
-                
+
                 post->set_post(temp);
 
-                temp = temp.substr(1, temp.size());
-                
-                set_hashtag(hashtags, post);
+                set_hashtag(hashtag, post);
             }
         }
 
         output.close();
+    }
+}
+
+bool twitterak::validateusername(string username)
+{
+
+    try
+    {
+        if(username.size() <  5)
+        {
+            throw out_of_range("!Username must be at least 5 character!");
+        }
+
+        if(username == "login" || username == "signup" || username == "tweeet" || username == "edit" || username == "profile"
+        || username == "retweet" || username == "quotetweet" || username == "exit" || username == "help" || username == "like")
+        {
+            throw std::invalid_argument("! Invalid argument!");
+        }
+
+        if(users.count(username))
+        {
+            throw std::invalid_argument("! user has already exist!");
+        }
+    }
+
+    catch(out_of_range& e)
+    {
+        return 1;
+    }
+
+    catch(invalid_argument &e)
+    {
+        return 1;
     }
 }
 

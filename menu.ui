@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>menu</class>
  <widget class="QWidget" name="menu">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -47,7 +50,7 @@ color: rgb(255, 255, 255);</string>
      <rect>
       <x>62</x>
       <y>1</y>
-      <width>1291</width>
+      <width>1289</width>
       <height>45</height>
      </rect>
     </property>
@@ -117,9 +120,9 @@ color: rgb(187, 187, 187);</string>
    <widget class="QFrame" name="frame_bottommenu">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>62</x>
       <y>805</y>
-      <width>1301</width>
+      <width>1289</width>
       <height>45</height>
      </rect>
     </property>
@@ -136,7 +139,7 @@ color: rgb(187, 187, 187);</string>
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>90</x>
        <y>7</y>
        <width>191</width>
        <height>25</height>
@@ -611,8 +614,8 @@ color: rgb(187, 187, 187);</string>
       <rect>
        <x>1</x>
        <y>19</y>
-       <width>239</width>
-       <height>71</height>
+       <width>254</width>
+       <height>70</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -624,8 +627,8 @@ color: rgb(187, 187, 187);</string>
      <widget class="QLabel" name="lbl_profile">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>30</y>
+        <x>25</x>
+        <y>25</y>
         <width>55</width>
         <height>16</height>
        </rect>
@@ -923,8 +926,7 @@ QGroupBox
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(12, 14, 18);
-color: rgb(253, 253, 253);</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>send tweet</string>
@@ -1172,6 +1174,14 @@ QGroupBox
              <height>34</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <family>Dubai</family>
+             <pointsize>9</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
             <string>follow</string>
            </property>
@@ -1208,6 +1218,14 @@ QGroupBox
              <height>34</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <family>Dubai</family>
+             <pointsize>9</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
             <string>show profile</string>
            </property>
@@ -1231,6 +1249,14 @@ QGroupBox
              <width>16777215</width>
              <height>34</height>
             </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Dubai</family>
+             <pointsize>9</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
            </property>
            <property name="text">
             <string>send mention</string>
@@ -1276,6 +1302,14 @@ QGroupBox
              <width>16777215</width>
              <height>34</height>
             </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Dubai</family>
+             <pointsize>9</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
            </property>
            <property name="text">
             <string>show like and mention</string>
@@ -1469,12 +1503,12 @@ color: rgb(250, 250, 250);</string>
      </property>
     </widget>
    </widget>
+   <zorder>box_profile</zorder>
+   <zorder>box_tweets</zorder>
    <zorder>frame_upmenu</zorder>
    <zorder>frame_bottommenu</zorder>
    <zorder>frame_leftmenu</zorder>
-   <zorder>box_profile</zorder>
    <zorder>frame_search</zorder>
-   <zorder>box_tweets</zorder>
   </widget>
  </widget>
  <resources/>

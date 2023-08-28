@@ -61,6 +61,10 @@ private slots:
 
     void on_btn_sendmention_clicked();
 
+    void on_le_search_returnPressed();
+
+    void on_listWidget_showusersandhastags_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::menu *ui;
     user* currentuser;

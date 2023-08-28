@@ -13,9 +13,10 @@ class showprofile : public QWidget
     Q_OBJECT
 
 public:
-    explicit showprofile(user*, user*, unordered_map<string, user*> &, QWidget *parent = nullptr);
+    explicit showprofile( user* target, user* currentuser, unordered_map<string, user*> &users, QWidget *parent = nullptr);
     ~showprofile();
     void set();
+    void store_follower_following_infile();
 
 private slots:
 
@@ -24,7 +25,7 @@ private slots:
 private:
     Ui::showprofile *ui;
     user * target;
-    user * me;
+    user * currentuser;
     unordered_map<string, user*> users;
 };
 

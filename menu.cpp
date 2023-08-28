@@ -76,6 +76,44 @@ void menu::store_follower_following_infile()
     ufile.close();
 }
 
+void menu::read_hashtag_fromfile()
+{
+    fstream output;
+    output.open("hashtags.txt", ios::in);
+
+
+    if(output.is_open())
+    {
+        string hashtag, temp;
+        tweet *post = nullptr;
+
+        while(getline(output, hashtag))
+        {
+
+            hashtag.pop_back();
+
+
+            while(getline(output, temp))
+            {
+                post = new tweet;
+
+                if(temp == "------------")
+                {
+                    break;
+                }
+
+                post->set_post(temp);
+
+
+                set_hashtag(hashtag, post);
+            }
+        }
+
+        output.close();
+    }
+}
+
+
 string menu::SystemCurrentTime()
 {
     time_t t;
@@ -166,6 +204,7 @@ bool menu::check_user(string username)
    else return 0;
 }
 
+//=============================================================== menu functions
 
 void menu::on_btn_leftmenu_clicked()
 {
@@ -189,7 +228,7 @@ void menu::on_btn_leftmenu_clicked()
         ui->btn_calender->setText("calender");
         ui->btn_calender->setFont(*font);
 
-        ui->box_tweets->setGeometry(151, 65, 911, 731);
+        ui->box_tweets->setGeometry(151, 65, 911, 721);
 
         ui->btn_logout->show();
         ui->btn_editprofile->show();
@@ -208,7 +247,7 @@ void menu::on_btn_leftmenu_clicked()
          ui->btn_profile->setText("");
          ui->btn_calender->setText("");
 
-         ui->box_tweets->setGeometry(71, 65, 911, 731);
+         ui->box_tweets->setGeometry(71, 65, 911, 721);
 
         ui->btn_logout->hide();
         ui->btn_editprofile->hide();
@@ -223,15 +262,15 @@ void menu::on_btn_profile_clicked()
 {
     if(ui->box_profile->isHidden())
     {
-        ui->box_tweets->setGeometry(408, 65, 861, 731);
-        ui->box_profile->setGeometry(151, 65, 256, 731);
+        ui->box_tweets->setGeometry(408, 65, 861, 721);
+        ui->box_profile->setGeometry(151, 65, 256, 721);
         ui->box_profile->show();
     }
 
     else
     {
         ui->box_profile->hide();
-         ui->box_tweets->setGeometry(161, 65, 911, 731);
+         ui->box_tweets->setGeometry(161, 65, 911, 721);
 
     }
 }
@@ -251,13 +290,13 @@ void menu::on_btn_calender_clicked()
     if(ui->calendarWidget->isHidden())
     {
         ui->calendarWidget->show();
-        ui->box_tweets->resize(911, 731);
+        ui->box_tweets->resize(911, 721);
     }
 
     else
     {
         ui->calendarWidget->hide();
-        ui->box_tweets->resize(911, 531);
+        ui->box_tweets->resize(911, 721);
     }
 
 }
@@ -269,6 +308,9 @@ void menu::on_btn_search_clicked()
 
     else ui->frame_search->hide();
 }
+
+//====================================================================== users functions
+
 
 void menu::on_btn_sendtweets_clicked()
 {
@@ -297,6 +339,8 @@ void menu::on_btn_like_clicked()
 {
     string username = ui->le_usernamelike->text().toStdString();
     int index = ui->le_numbertweetlike->text().toInt();
+    int indexmention = 0;
+    indexmention = ui->le_numbermentionlike->text().toInt();
 
     if(username[0] == '@')
     {
@@ -305,19 +349,32 @@ void menu::on_btn_like_clicked()
 
     QMessageBox q;
 
-
-    if(check_user(username) && checknum(index, users[username]))
+    if(indexmention != 0)
     {
-        currentuser->set_likes(currentuser, users[username], index);
-        stor_tweet_infile();
+        if(check_user(username) && checknum(index, users[username]) && users[username]->check_mention(index, indexmention) )
+        {
 
-        ui->listWidget_mytweets->clear();
+            currentuser->mention_like(users[username], index, indexmention);
+            stor_tweet_infile();
 
-        fill_tweetswidget();
+        }
+
+         else q.warning(this, "like", "user or tweet or mention not exist!");
     }
 
+    else
+    {
 
-    else q.warning(this, "like", "user or numbertweet not exist!");
+        if(check_user(username) && checknum(index, users[username]))
+        {
+            currentuser->set_likes(currentuser, users[username], index);
+            stor_tweet_infile();
+            fill_tweetswidget();
+        }
+
+        else q.warning(this, "like", "user or tweet or mention not exist!");
+    }
+
 
     ui->le_usernamelike->clear();
 
@@ -545,7 +602,6 @@ void menu::on_btn_deletetweet_clicked()
     else q.warning(this, "deleting tweet", "this tweet not exist!");
 
     ui->le_deletetweet->clear();
-    ui->le_deletetweet->hide();
 
 }
 
@@ -573,4 +629,59 @@ void menu::on_btn_sendmention_clicked()
 
     ui->le_usernamemention->clear();
 
+}
+
+void menu::on_le_search_returnPressed()
+{
+    string str = ui->le_search->text().toStdString();
+
+    if(str[0] == '@')
+    {
+        string username = str.substr(1, str.length() - 1);
+        QMessageBox q;
+
+
+        if(check_user(username))
+        {
+            showprofile *l = new showprofile(users[username], currentuser, users);
+            l->show();
+
+            fill_followingswidget();
+
+            store_follower_following_infile();
+        }
+
+        else q.warning(this, "searching", "user not found!");
+    }
+
+    if(str[0] == '#')
+    {
+        ui->listWidget_showusersandhastags->clear();
+
+        string hashtag = str.substr(1, str.length());
+
+        for(auto i: hashtags[hashtag])
+        {
+            ui->listWidget_showusersandhastags->addItem(QString::fromStdString( i->get_post()));
+        }
+    }
+
+
+    ui->le_search->clear();
+}
+
+
+
+void menu::on_listWidget_showusersandhastags_itemClicked(QListWidgetItem *item)
+{
+
+    if(ui->rbtn_users->isChecked())
+    {
+        string username = ui->listWidget_showusersandhastags->currentItem()->text().toStdString();
+
+        showprofile *l = new showprofile(users[username], currentuser, users);
+        l->show();
+
+        fill_followingswidget();
+    }
 }

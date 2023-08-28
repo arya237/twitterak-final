@@ -59,6 +59,7 @@ class twitterak
         void get_follower_following_infile();
         void write_hashtag_infile();
         void read_hashtag_fromfile();
+        bool validateusername(string username);
 };
 
 #endif
