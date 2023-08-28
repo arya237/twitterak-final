@@ -110,10 +110,13 @@ color: rgb(214, 214, 214);
       <font>
        <family>Consolas</family>
        <pointsize>20</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(0, 66, 198);</string>
+      <string notr="true">
+color: rgb(214, 214, 214);</string>
      </property>
      <property name="text">
       <string>signup</string>
@@ -326,10 +329,13 @@ p, li { white-space: pre-wrap; }
       <font>
        <family>Dubai</family>
        <pointsize>9</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 66, 198);</string>
+      <string notr="true">background-color: rgb(68, 68, 68);
+color: rgb(214, 214, 214);</string>
      </property>
      <property name="text">
       <string>done</string>
@@ -357,7 +363,8 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 66, 198);</string>
+      <string notr="true">background-color: rgb(68, 68, 68);
+color: rgb(214, 214, 214);</string>
      </property>
      <property name="text">
       <string>import profile image</string>

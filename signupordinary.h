@@ -23,8 +23,11 @@ private slots:
 
     void on_ln_password_textChanged(const QString &arg1);
 
+    void on_pushButton_clicked();
+
 private:
     Ui::SignupOrdinary *ui;
+    std::string profile;
 };
 
 #endif // SIGNUPORDINARY_H

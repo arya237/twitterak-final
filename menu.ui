@@ -117,9 +117,9 @@ color: rgb(187, 187, 187);</string>
    <widget class="QFrame" name="frame_bottommenu">
     <property name="geometry">
      <rect>
-      <x>62</x>
-      <y>806</y>
-      <width>1291</width>
+      <x>50</x>
+      <y>805</y>
+      <width>1301</width>
       <height>45</height>
      </rect>
     </property>
@@ -136,7 +136,7 @@ color: rgb(187, 187, 187);</string>
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>80</x>
        <y>7</y>
        <width>191</width>
        <height>25</height>
@@ -160,10 +160,10 @@ color: rgb(187, 187, 187);</string>
     <widget class="QLabel" name="lbl_showclock">
      <property name="geometry">
       <rect>
-       <x>1160</x>
+       <x>1150</x>
        <y>10</y>
-       <width>131</width>
-       <height>20</height>
+       <width>111</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -184,7 +184,7 @@ color: rgb(187, 187, 187);</string>
     <widget class="QLabel" name="lbl_showclocklogo">
      <property name="geometry">
       <rect>
-       <x>1120</x>
+       <x>1130</x>
        <y>10</y>
        <width>61</width>
        <height>21</height>
@@ -330,8 +330,8 @@ color: rgb(187, 187, 187);</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(68, 68, 68);
-color: rgb(187, 187, 187);</string>
+         <string notr="true">background-color: rgb(0, 66, 198);
+</string>
         </property>
         <property name="text">
          <string>edit profile</string>
@@ -922,6 +922,10 @@ QGroupBox
              <bold>true</bold>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(12, 14, 18);
+color: rgb(253, 253, 253);</string>
+           </property>
            <property name="text">
             <string>send tweet</string>
            </property>
@@ -1289,7 +1293,7 @@ QGroupBox
        <x>360</x>
        <y>160</y>
        <width>201</width>
-       <height>211</height>
+       <height>201</height>
       </rect>
      </property>
      <property name="frameShape">

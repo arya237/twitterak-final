@@ -39,8 +39,9 @@ void SignupOrganization::on_btn_signup_clicked()
     phonenumber = ui->ln_phonenumber->text().toStdString();
     header = ui->le_header->text().toStdString();
 
+
     this->close();
-    t.signup(username,name,country,phonenumber,link,password,biography, header);
+    t.signup(username,name,country,phonenumber,link,password,biography, header, profile);
 
 }
 

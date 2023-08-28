@@ -33,50 +33,10 @@ tweet temp;
 //========================================================================= signingup
 //Sign up function which asks for users information. 
 
-void twitterak::signup(string username,string name,string country,string phonenumber,string link,string password,string biography, string header)
+void twitterak::signup(string username,string name,string country,string phonenumber,string link,string password,string biography, string header, string profile)
 {
     currentuser = new orguser;
-    bool flag = 1 ;
-//            string chief;
-//            if(check_user(chief))
-//            {
-//                currentuser = new orguser;
-//            }
 
-//            else
-//            {
-//                  Qmessage
-//
-//            }
-
-//
-//
-
- /*
-            //Some validations done in user header file.
-*/
-    if(currentuser->validateusername(username))
-        {
-          flag = 0;         //مشکلللللللللل
-        }
-
-
-//        while(currentuser->validatebirthday(birthday))
-//        {
-//
-//        }
-
-    if (currentuser->validatephonenumber(phonenumber))
-        {
-          flag = 0;
-        }
-
-    if(currentuser->validatepass(password))
-        {
-          flag = 0;
-        }
-
-    //setters
 
     if(link == "")
     {
@@ -95,7 +55,7 @@ void twitterak::signup(string username,string name,string country,string phonenu
     currentuser->set_country(country);
     currentuser->set_link(link);
     currentuser->set_biography(biography);
-//    currentuser->set_birthday(birthday);
+    currentuser->set_image(profile);
     currentuser->set_phonenumber(phonenumber);
     currentuser->set_header(header);
 
@@ -104,42 +64,18 @@ void twitterak::signup(string username,string name,string country,string phonenu
      store_user_infile();
     //after sign up user is allowed to run program with inaccount function.
 
-     if (flag == 1)
-     {
-         QMessageBox s;
-         s.setText("successful");
-         s.exec();
-     }
+    QMessageBox s;
+    s.setText("successful");
+    s.exec();
 
-     inaccount(currentuser);
+    inaccount(currentuser);
 
 }
 
-void twitterak::ordsignup(string username,string name,string country,string phonenumber,string link,string password,string biography, string birthday, string header)
+void twitterak::ordsignup(string username,string name,string country,string phonenumber,string link,string password,string biography, string birthday, string header, string profile)
 {
         //Some validations done in user header file.
     currentuser = new ordinaryuser;
-    bool flag = 1;
-    if(currentuser->validateusername(username))
-    {
-      flag = 0;         //مشکلللللللللل
-    }
-
-
-    //        while(currentuser->validatebirthday(birthday))
-    //        {
-    //
-    //        }
-
-    if (currentuser->validatephonenumber(phonenumber))
-    {
-      flag = 0;
-    }
-
-    if(currentuser->validatepass(password))
-    {
-      flag = 0;
-    }
 
     //setters
     currentuser->set_username(username);
@@ -152,18 +88,18 @@ void twitterak::ordsignup(string username,string name,string country,string phon
     currentuser->set_header(header);
     currentuser->set_birthday(seperate_time(birthday));
     currentuser->set_phonenumber(phonenumber);
+    currentuser->set_image(profile);
 
     //saving current user information in users map.
+
     users[currentuser->get_username()] = currentuser;
     store_user_infile();
+
     //after sign up user is allowed to run program with inaccount function.
 
-    if (flag == 1)
-    {
-     QMessageBox s;
-     s.setText("successful");
-     s.exec();
-    }
+    QMessageBox s;
+    s.setText("successful");
+    s.exec();
 
     inaccount(currentuser);
 }
@@ -180,7 +116,7 @@ void twitterak::anonymoussignup(string username , string password)
         currentuser->set_link("");
         currentuser->set_phonenumber("");
         currentuser->set_header("white");
-        users[currentuser->get_username()] = currentuser; 
+        users[currentuser->get_username()] = currentuser;
         store_user_infile();
 
         QMessageBox s;
@@ -584,323 +520,323 @@ void twitterak::inaccount(user *currentuser)
 
 //=============================================== help
 
-void twitterak::Help()
-{
-    cout << setw(13) << "=======================" << endl << setw(13) << "menu" << endl;
-    cout << setw(16) << ">Profile" << endl << setw(13) << ">edit" << endl << setw(15) << ">logout" << endl << setw(23)
-    << ">delete account" <<endl << setw(14) << ">tweet" << endl << setw(13) << setw(15) << ">retweet" << endl <<setw(15)<< ">exit" << endl
-    << setw(18) <<">qoutetweet" << endl << setw(15) << "like" << endl << setw(18) <<"dislike"<<endl;
-}
-
-//==================================== profile
-//outputs current users profile information using getter
-
-void twitterak::profile (user *o) const 
-{   
-    o->print();
-}
-
-//==================================== edit profile
-
-void twitterak::edit (vector <string> &command)
-{   
-
-    if (command[2] == "username")
-    {   
-        //changing username in both key and value of users map. 
-        user *copy;
-        copy = currentuser;
-
-        //sepereating double qout and @.
-        command[3] = command[3].erase(0,1);
-
-        if(command[3][0] == '@')
-        {
-            command[3] = command[3].erase(0,1);
-        }
-
-        command[3] = command[3].erase(command[3].size()-1 ,1);
-
-        while(currentuser->validateusername(command[3]))
-        {
-            cin >> command[3];
-
-            command[3] = command[3].erase(0,1);
-
-            if(command[3][0] == '@')
-            {
-                command[3] = command[3].erase(0,1);
-            }
-
-            //deleting account by erasing current usernames' element in users map.
-            command[3] = command[3].erase(command[3].size()-1 ,1);
-
-            cin.ignore();
-
-        }
-
-        users.erase(currentuser->get_username());
-        currentuser->set_username(command[3]);
-        users[command[3]] = copy;
-    }
-
-    else if (command[2] == "password" )
-    {   
-        command[3] = command[3].erase(0,1);
-        command[3] = command[3].erase(command[3].size()-1 ,1);
-
-        while(currentuser->validatepass(command[3]))
-        {
-            cin >> command[3];
-
-            command[3] = command[3].erase(0,1);
-            command[3] = command[3].erase(command[3].size()-1 ,1);
-
-        }
-
-        currentuser->set_password(command[3]);
-    }
-
-    else if(command[2] == "country")
-    {   
-        command[3] = command[3].erase(0,1);
-        command[3] = command[3].erase(command[3].size()-1 ,1);
-        currentuser->set_country(command[3]);
-    }
-
-    else if(command[2] == "link")
-    {   
-        command[3] = command[3].erase(0,1);
-        command[3] = command[3].erase(command[3].size()-1 ,1);
-        currentuser->set_link(command[3]);
-    }
-
-
-    else if(command[2] == "phonenumber")
-    {   
-        while(currentuser->validatephonenumber(command[3]))
-        {
-            cin >> command[3];
-        }
-
-        currentuser->set_phonenumber(command[3]);
-    }
-
-    else if(command[2] == "name")
-    {   
-        command[3] = command[3].erase(0,1);
-        command[3] = command[3].erase(command[3].size()-1 ,1);
-
-        currentuser->set_name(command[3]);
-    }
-
-    else if(command[2] == "biography")
-    {   
-        command[3] = command[3].erase(0,1);
-        command[3] = command[3].erase(command[3].size()-1 ,1);
-
-        currentuser->set_biography(command[3]);
-    }
-
-    else cout << "command invalid!" << endl;
-}
-
-
-
-//============================================== delete user
-
-//void twitterak::deleteuser(string keyusername)
+//void twitterak::Help()
 //{
-//    char ch;
-//    cout << "Do you want delete your account? y/n";
-//    cin >> ch;
-
-//    if(ch == 'y')
-//    {
-//        users.erase(keyusername);
-//         cout << "* Account deleted successfully." << endl;
-//    }
-//    cin.ignore();
-////    run();
+//    cout << setw(13) << "=======================" << endl << setw(13) << "menu" << endl;
+//    cout << setw(16) << ">Profile" << endl << setw(13) << ">edit" << endl << setw(15) << ">logout" << endl << setw(23)
+//    << ">delete account" <<endl << setw(14) << ">tweet" << endl << setw(13) << setw(15) << ">retweet" << endl <<setw(15)<< ">exit" << endl
+//    << setw(18) <<">qoutetweet" << endl << setw(15) << "like" << endl << setw(18) <<"dislike"<<endl;
 //}
 
-//============================================== post tweet
- //sets tweet and its number and saves in a map.
+////==================================== profile
+////outputs current users profile information using getter
+
+//void twitterak::profile (user *o) const
+//{
+//    o->print();
+//}
+
+////==================================== edit profile
+
+//void twitterak::edit (vector <string> &command)
+//{
+
+//    if (command[2] == "username")
+//    {
+//        //changing username in both key and value of users map.
+//        user *copy;
+//        copy = currentuser;
+
+//        //sepereating double qout and @.
+//        command[3] = command[3].erase(0,1);
+
+//        if(command[3][0] == '@')
+//        {
+//            command[3] = command[3].erase(0,1);
+//        }
+
+//        command[3] = command[3].erase(command[3].size()-1 ,1);
+
+//        while(currentuser->validateusername(command[3]))
+//        {
+//            cin >> command[3];
+
+//            command[3] = command[3].erase(0,1);
+
+//            if(command[3][0] == '@')
+//            {
+//                command[3] = command[3].erase(0,1);
+//            }
+
+//            //deleting account by erasing current usernames' element in users map.
+//            command[3] = command[3].erase(command[3].size()-1 ,1);
+
+//            cin.ignore();
+
+//        }
+
+//        users.erase(currentuser->get_username());
+//        currentuser->set_username(command[3]);
+//        users[command[3]] = copy;
+//    }
+
+//    else if (command[2] == "password" )
+//    {
+//        command[3] = command[3].erase(0,1);
+//        command[3] = command[3].erase(command[3].size()-1 ,1);
+
+//        while(currentuser->validatepass(command[3]))
+//        {
+//            cin >> command[3];
+
+//            command[3] = command[3].erase(0,1);
+//            command[3] = command[3].erase(command[3].size()-1 ,1);
+
+//        }
+
+//        currentuser->set_password(command[3]);
+//    }
+
+//    else if(command[2] == "country")
+//    {
+//        command[3] = command[3].erase(0,1);
+//        command[3] = command[3].erase(command[3].size()-1 ,1);
+//        currentuser->set_country(command[3]);
+//    }
+
+//    else if(command[2] == "link")
+//    {
+//        command[3] = command[3].erase(0,1);
+//        command[3] = command[3].erase(command[3].size()-1 ,1);
+//        currentuser->set_link(command[3]);
+//    }
+
+
+//    else if(command[2] == "phonenumber")
+//    {
+//        while(currentuser->validatephonenumber(command[3]))
+//        {
+//            cin >> command[3];
+//        }
+
+//        currentuser->set_phonenumber(command[3]);
+//    }
+
+//    else if(command[2] == "name")
+//    {
+//        command[3] = command[3].erase(0,1);
+//        command[3] = command[3].erase(command[3].size()-1 ,1);
+
+//        currentuser->set_name(command[3]);
+//    }
+
+//    else if(command[2] == "biography")
+//    {
+//        command[3] = command[3].erase(0,1);
+//        command[3] = command[3].erase(command[3].size()-1 ,1);
+
+//        currentuser->set_biography(command[3]);
+//    }
+
+//    else cout << "command invalid!" << endl;
+//}
+
+
+
+////============================================== delete user
+
+////void twitterak::deleteuser(string keyusername)
+////{
+////    char ch;
+////    cout << "Do you want delete your account? y/n";
+////    cin >> ch;
+
+////    if(ch == 'y')
+////    {
+////        users.erase(keyusername);
+////         cout << "* Account deleted successfully." << endl;
+////    }
+////    cin.ignore();
+//////    run();
+////}
+
+////============================================== post tweet
+// //sets tweet and its number and saves in a map.
  
-void twitterak::post_tweet (vector<string> &command)
-{
-    string post, date;
-    string number;
+//void twitterak::post_tweet (vector<string> &command)
+//{
+//    string post, date;
+//    string number;
 
-    for(int i = 1; i < command.size(); i++)
-    {
-        post += command[i] + " ";
-    }
+//    for(int i = 1; i < command.size(); i++)
+//    {
+//        post += command[i] + " ";
+//    }
 
-    seperator(post);
+//    seperator(post);
 
     
-    date = SystemCurrentTime(); 
+//    date = SystemCurrentTime();
 
-    if(currentuser->SetTweet(post, date))
-    {   
-        find_hashtags();
-    }
-}
+//    if(currentuser->SetTweet(post, date))
+//    {
+//        find_hashtags();
+//    }
+//}
 
-//============================================== view tweet
-//outputs all tweets
-void twitterak::view_tweet(user* o)
-{
+////============================================== view tweet
+////outputs all tweets
+//void twitterak::view_tweet(user* o)
+//{
     
-    o->View_Tweet();
-}
+//    o->View_Tweet();
+//}
 
-//oveloaded function outputs specific tweet.
-void twitterak::view_tweet(user*o, int index)
-{
-    o->View_Tweet(index);
-}
+////oveloaded function outputs specific tweet.
+//void twitterak::view_tweet(user*o, int index)
+//{
+//    o->View_Tweet(index);
+//}
 
-//============================================= edit tweet
+////============================================= edit tweet
 
-void twitterak::edit_tweet(int i)
-{   
-    if(currentuser->get_age() == -1)
-    {
-        cout << "Enter your new tweet:"<< endl;
-        string newtweet;
-        getline(cin , newtweet);
+//void twitterak::edit_tweet(int i)
+//{
+//    if(currentuser->get_age() == -1)
+//    {
+//        cout << "Enter your new tweet:"<< endl;
+//        string newtweet;
+//        getline(cin , newtweet);
 
-        newtweet += '\n' + SystemCurrentTime();
-        currentuser->Edit_Tweet(newtweet,i);
-    }
+//        newtweet += '\n' + SystemCurrentTime();
+//        currentuser->Edit_Tweet(newtweet,i);
+//    }
 
-    else if ( currentuser->get_age() < 18)
-    cout << "! You can't access editng tweets because you're under 18." << endl;
-    //edits tweet if user is older than 18.
-    //accessing tweets map at wanted index.
+//    else if ( currentuser->get_age() < 18)
+//    cout << "! You can't access editng tweets because you're under 18." << endl;
+//    //edits tweet if user is older than 18.
+//    //accessing tweets map at wanted index.
 
-    else
-    {
-        cout << "Enter your new tweet:"<< endl;
-        string newtweet;
-        getline(cin , newtweet);
+//    else
+//    {
+//        cout << "Enter your new tweet:"<< endl;
+//        string newtweet;
+//        getline(cin , newtweet);
 
-        newtweet += '\n' + SystemCurrentTime();
-        currentuser->Edit_Tweet(newtweet,i);
-    }
+//        newtweet += '\n' + SystemCurrentTime();
+//        currentuser->Edit_Tweet(newtweet,i);
+//    }
  
-}
+//}
 
 
 
-//============================================= delete tweet
+////============================================= delete tweet
 
-void twitterak::retweet(string username, int tweetnum)
-{   
-    string date = SystemCurrentTime();
-    currentuser->Retweet(users[username], tweetnum, date);
-}
+//void twitterak::retweet(string username, int tweetnum)
+//{
+//    string date = SystemCurrentTime();
+//    currentuser->Retweet(users[username], tweetnum, date);
+//}
 
-// void twitterak::quote_tweet(string username, int tweetnum, vector<string> &command)
-// {
-//     string qoute, date;
+//// void twitterak::quote_tweet(string username, int tweetnum, vector<string> &command)
+//// {
+////     string qoute, date;
 
-//     for(int i = 2; i < command.size(); i++)
-//     {
-//         qoute += command[i] + " ";
-//     }
+////     for(int i = 2; i < command.size(); i++)
+////     {
+////         qoute += command[i] + " ";
+////     }
    
-//     date = SystemCurrentTime();
+////     date = SystemCurrentTime();
 
-//     currentuser->qoutetweet(users[username], tweetnum, qoute, date);
-//     //setting entered tweet with username and qouted tweet together and set it as a post for current user.
+////     currentuser->qoutetweet(users[username], tweetnum, qoute, date);
+////     //setting entered tweet with username and qouted tweet together and set it as a post for current user.
 
-//     cout << "* Your tweet sent successfully." <<endl;
-// }
+////     cout << "* Your tweet sent successfully." <<endl;
+//// }
 
-void twitterak:: find_hashtags()
-{   
-    tweet *temp;
-    string copy;
-    stringstream key(currentuser->GetPost());
-    int counter = 0 ;
-    int index = currentuser->get_numbertweet();
+//void twitterak:: find_hashtags()
+//{
+//    tweet *temp;
+//    string copy;
+//    stringstream key(currentuser->GetPost());
+//    int counter = 0 ;
+//    int index = currentuser->get_numbertweet();
 
-    for(int i = 0 ; i < currentuser->GetPost().size(); i++)
-    {   
-        //checking if entered post has a hashtag or not.ascii code for # is 35.
-        if(currentuser->GetPost()[i] == 35 )
-        {
-            counter ++;
-        }
-    }
+//    for(int i = 0 ; i < currentuser->GetPost().size(); i++)
+//    {
+//        //checking if entered post has a hashtag or not.ascii code for # is 35.
+//        if(currentuser->GetPost()[i] == 35 )
+//        {
+//            counter ++;
+//        }
+//    }
 
-    while(counter --)
-    {   
-        temp = (currentuser->get_tweet(index));
-        //seperates hashtags from a post
-        getline(key,copy,'#');
-        getline(key,copy,' ');
-        set_hashtag(copy, temp);
-    }
+//    while(counter --)
+//    {
+//        temp = (currentuser->get_tweet(index));
+//        //seperates hashtags from a post
+//        getline(key,copy,'#');
+//        getline(key,copy,' ');
+//        set_hashtag(copy, temp);
+//    }
     
-}
+//}
 
 void  twitterak::set_hashtag(string hashtag , tweet* tweet)
 {
     hashtags[hashtag].push_back(tweet);
 }
 
-void twitterak::get_hashtag(string hashtag)
-{       
-        string copy;
-        copy = hashtag.substr(1, hashtag.size() - 1);  
+//void twitterak::get_hashtag(string hashtag)
+//{
+//        string copy;
+//        copy = hashtag.substr(1, hashtag.size() - 1);
 
-        for(auto i: hashtags[copy])
-        {
-            cout << i->get_post()<<endl;
-        }
-}
+//        for(auto i: hashtags[copy])
+//        {
+//            cout << i->get_post()<<endl;
+//        }
+//}
 
 
-void twitterak::changeheader(string header = "white")
-{   
-    if(header == "yellow")
-    {
-        system("color 06");
-    }
+//void twitterak::changeheader(string header = "white")
+//{
+//    if(header == "yellow")
+//    {
+//        system("color 06");
+//    }
 
-    else if(header == "blue")
-    {
-        system("color 03");
-    }
+//    else if(header == "blue")
+//    {
+//        system("color 03");
+//    }
 
-    else if(header == "red")
-    {
-        system("color 04");
-    }
+//    else if(header == "red")
+//    {
+//        system("color 04");
+//    }
 
-    else if(header == "purple")
-    {
-        system("color 05");
-    }
+//    else if(header == "purple")
+//    {
+//        system("color 05");
+//    }
 
-    else if(header == "green")
-    {
-        system("color 02");
-    }
+//    else if(header == "green")
+//    {
+//        system("color 02");
+//    }
 
-    else if (header == "white")
-    {
-        system("color 07");
-    }
+//    else if (header == "white")
+//    {
+//        system("color 07");
+//    }
 
-    else 
-    cout << "! Wrong command. Please choose a color from list";
+//    else
+//    cout << "! Wrong command. Please choose a color from list";
         
-}
+//}
 
 
 //seperator sensitive to space. using for seperating command and entered information.

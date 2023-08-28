@@ -551,6 +551,7 @@ void menu::on_btn_deletetweet_clicked()
 
 void menu::on_btn_sendmention_clicked()
 {
+
     string username = ui->le_usernamemention->text().toStdString();
     int index = ui->le_numbertweetemtion->text().toInt();
 
@@ -560,9 +561,11 @@ void menu::on_btn_sendmention_clicked()
         string date = SystemCurrentTime();
 
         users[username]->set_mention(post, date, index);
+        stor_tweet_infile();
     }
 
-    stor_tweet_infile();
+    else QMessageBox::warning(this, "mention", "username or numbertweet not found!");
+
 
     ui->le_mentionpost->clear();
 

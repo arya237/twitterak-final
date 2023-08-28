@@ -2,6 +2,7 @@
 #include "ui_signupordinary.h"
 #include "chooseaccount.h"
 #include "twitterak.hpp"
+#include "qfiledialog.h"
 
 SignupOrdinary::SignupOrdinary(QWidget *parent) :
     QMainWindow(parent),
@@ -45,7 +46,7 @@ void SignupOrdinary::on_btn_signup_clicked()
 
 
     this->close();
-    t.ordsignup(username,name,country,phonenumber,link,password,biography, birthday, header);
+    t.ordsignup(username,name,country,phonenumber,link,password,biography, birthday, header, profile);
 }
 
 
@@ -65,4 +66,9 @@ void SignupOrdinary::on_ln_password_textChanged(const QString &arg1)
 //    {
 //        ui->btn_signup->setEnabled(true);
 //    }
+}
+
+void SignupOrdinary::on_pushButton_clicked()
+{
+    profile = QFileDialog::getOpenFileName(this, "open", "picture", "image(*.jpg)").toStdString();
 }

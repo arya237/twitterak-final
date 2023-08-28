@@ -1,4 +1,4 @@
-#ifndef SIGNUPORGANIZATION_H
+﻿#ifndef SIGNUPORGANIZATION_H
 #define SIGNUPORGANIZATION_H
 
 #include <QMainWindow>
@@ -24,6 +24,7 @@ private slots:
 
 private:
     Ui::SignupOrganization *ui;
+    std::string profile;
 };
 
 #endif // SIGNUPORGANIZATION_H

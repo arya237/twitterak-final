@@ -26,89 +26,6 @@ void user::set_password(string password)
     this -> password = password;
 }
 
-bool user::validatepass(string password)
-{       
-    bool charflag = 0, upcaseflag = 0, lowcaseflag = 0, numflag = 0;
-
-    try
-    {
-
-        for(int i : password)
-        {
-            if((i >= 33 && i <= 47 ) || ( 58 <= i && i <= 64) || i == 32)
-            {
-                charflag = 1;
-            }
-
-            if(i >= 48 && i <= 57)
-            {
-                numflag = 1;
-            }
-
-            if(i >= 65 && i <= 90)
-            {
-                upcaseflag = 1; 
-            }
-
-            if(i >= 97 && i <= 122)
-            {
-                lowcaseflag = 1;
-            }
-        }
-
-        if(charflag && lowcaseflag && upcaseflag && numflag)
-        {
-            return 0;
-        }
-
-        else throw std::invalid_argument
-            ("! Password must have at least 8 digit and lowercaseand uppercase and number and character.");
-    }
-
-    catch (invalid_argument &e)
-    {
-        cout << e.what() << endl;
-        return 1;
-    }
-
-}
-
-
-
-bool user::validateusername(string username)
-{
-    try
-    {
-        if(username.size() <  5)
-        {
-            QMessageBox s;
-            s.setText("wrong username");
-            s.exec();
-        } 
-
-        if(username == "login" || username == "signup" || username == "tweeet" || username == "edit" || username == "profile"
-        || username == "retweet" || username == "quotetweet" || username == "exit" || username == "help" || username == "like")
-        {
-            QMessageBox s;
-            s.setText("wrong username");
-            s.exec();
-        }
-    }
-
-    catch(out_of_range& e)
-    {
-        cout << e.what() << endl;
-        return 1;
-    }
-
-    catch(invalid_argument &e)
-    {
-        cout << e.what() << endl;
-        return 1;
-    }
-}
-
-    
 void user:: set_header(string header)
 {
     this -> header = header;
@@ -116,27 +33,34 @@ void user:: set_header(string header)
 
 
 void user::set_biography(string biography)
-{   
+{
     if(biography != "")
     this -> biography = biography;
 }
 
 void user::set_country(string country)
-{   
+{
     if(country != "")
     this -> country = country;
 }
 
 void user::set_link(string link)
-{   
-    if(link != "" && link != "_")
-    this -> link = "https://" + link;
+{
+    if(link == "")
+    {
+        this->link = "_";
+    }
 
-    else this->link = '_';
+    if(link == "_")
+    {
+        this->link = "_";
+    }
+
+    else this->link = "https://" + link;
 }
 
 void user::set_birthday(date birthday)
-{   
+{
     this -> birthday.year = birthday.year;
     this -> birthday.month = birthday.month;
     this -> birthday.day = birthday.day;
@@ -144,114 +68,18 @@ void user::set_birthday(date birthday)
 }
 
 void user::set_phonenumber(string phonenumber)
-{   
+{
     if(phonenumber.substr(0,2) != "98")
     this -> phonenumber =  "98" + phonenumber;
 
     else this -> phonenumber = phonenumber;
 }
 
-
-void user::print()
-{
-    cout << "|------------------------------------|" << endl;
-    cout << "|                                    |" << endl;
-    cout << "|              "<< "WELCOME"<<"               |" << endl;
-    cout << "|                                    |" << endl;
-    cout << "|------------------------------------|" << endl;
-    cout << "                 | |                " << endl;
-    cout << "                 | |                " <<endl;
-    
-
-    cout <<"username: "<< get_username() <<endl<< "name: " << get_name()<< endl << "biography : " << get_biography() << endl 
-    << "link : " << get_link() << endl << "country : " << get_country() << endl<< "phonenumber: " <<
-    get_phonenumber() << endl << "age: " << get_age() << endl;
-    cout << "number of followers: " << display_followers();
-    cout << endl;
-    
-    
-    cout << "==================================" << endl;
-}
-
-
-
-bool user::validatebio(string bio)
-{   try
-    {
-        if(bio.size() > 160)
-        {
-            throw out_of_range("max size of bio is 160 character!");
-        }
-    }
-
-    catch(out_of_range &e)
-    {
-        cout << e.what() << endl;
-        return 1;
-    }
-
-    return 0;
-}
-
-bool user::validatebirthday(date birthday)
-{   
-    try
-    {
-        if(birthday.year < 1900 || birthday.year > 2023)
-            throw std::invalid_argument ("! Year invalid. try again");
-
-        if(birthday.month < 1 || birthday.month > 12)
-            throw std::invalid_argument ("! Month invalid. try again");
-
-        if(birthday.day < 1 || birthday.day > 31)
-            throw std::invalid_argument ("! Day invalid. try again");
-    }
-
-    catch(invalid_argument &e)
-    {
-        cout << e.what() << endl;
-        return 1;
-    }
-
-    return 0;
-}
-
-bool user::validatephonenumber(string phonenumber)
-{
-    try
-    {
-        if ( phonenumber.size() != 10)
-        {
-            throw out_of_range ("! Phonenumber must be exactly 10 numbers");
-        }
-
-        for(int i : phonenumber)
-        {
-            if(i < 48 || i > 57)
-            {
-                throw std::invalid_argument("! Invalid argumnet. try again");
-            }
-        }
-    }     
-
-    catch(out_of_range &e)
-    {
-        cout << e.what() << endl;
-        return 1;
-    }
-
-    catch(invalid_argument &e)
-    {
-        cout << e.what() << endl;
-        return 1;
-    }
-}
-
 void user::set_numbertweet()
 {
     this->numbertweet++;
 }
-    
+
 
 bool user::SetTweet(string post, string date)
 {
@@ -262,7 +90,7 @@ bool user::SetTweet(string post, string date)
     q.setText("your tweet was sent succesfuly!");
     q.exec();
     return 1;
-    
+
 }
 
 void user::Set_filetweet(string post, string date)
@@ -270,27 +98,6 @@ void user::Set_filetweet(string post, string date)
     this->set_numbertweet();
     this->copytweet[numbertweet].set_post(post);
     this->copytweet[numbertweet].set_date(date);
-}
-
-void user::View_Tweet()
-{
-     for(auto i : this->copytweet)
-    {
-        cout << i.first << ": " << i.second.get_post() << endl << i.second.get_date() << "likes: " 
-        << this->copytweet[int(i.first)].show_likes()<< endl << "--------------------------" << endl; 
-
-    }
-}
-
-void user::View_Tweet(int index)
-{   
-    cout << index << ":" << this->copytweet[index].get_post() << endl << this->copytweet[index].get_date() << endl
-    << "likes: " << this->copytweet[index].show_likes() << endl << "--------------------------" << endl; 
-}
-
-void user::Edit_Tweet(string newtweet, int index)
-{
-    this->copytweet[index].set_post(newtweet);
 }
 
 bool user::check(int index)
@@ -305,7 +112,7 @@ bool user::check(int index)
 
 
 string user::GetPost()
-{   
+{
     return this->copytweet[numbertweet].get_post();
 }
 
@@ -344,12 +151,7 @@ void user::set_likes(user* currentuser, user* target, int index)
 
 void user::dislike(user* currentuser, user* target, int index)
 {
-    if(!(target->copytweet[index].check_like(currentuser)))
-    {
-        target->copytweet[index].dislike(currentuser);
-    }
-
-    else cout << "* you have'nt like this tweet!" << endl;
+    target->copytweet[index].dislike(currentuser);
 }
 
 void user::delete_tweet(int index)
@@ -379,15 +181,6 @@ tweet* user::get_tweet(int index)
     return &this->copytweet[index];
 }
 
-void user::display_followings()
-{
-    for( auto i : this->followings)
-    {
-        cout << i->get_username() << endl;
-    }
-
-    cout << "number of followings: " << this->followings.size() << endl;
-}
 
 int user::display_followings(int t)
 {
@@ -425,30 +218,17 @@ void user::add_following(user *target)
         q.setDetailedText("in twitterak we have 3type of users and anonymous users and you cant follow an anonymous user!");
         q.exec();
     }
-    
+
 }
 
 void user::unfollow(user* target)
 {
-    cout << "this->followings: " << endl;
-    for(auto i : this->followings)
-    {
-        cout << i->get_username() << " ";
-    }
-
-    cout << endl;
-
-    cout << "target->followers: " << endl;
-    for(auto i : target->followers)
-    {
-        cout << i->get_username() << " ";
-    }
 
     for(unsigned int i = 0; i < this->followings.size(); i++)
     {
         if(this->followings[i] == target)
         {
-            this->followings.erase(this->followings.begin(), this->followings.begin() + i + 1);
+            this->followings.erase(this->followings.begin() + i);
         }
     }
 
@@ -456,23 +236,10 @@ void user::unfollow(user* target)
     {
         if(target->followers[i] == this)
         {
-            target->followers.erase(target->followers.begin(), target->followers.begin() + i + 1);
+            target->followers.erase(target->followers.begin() + i);
         }
     }
 
-    cout << "this->followings: " << endl;
-    for(auto i : this->followings)
-    {
-        cout << i->get_username() << " ";
-    }
-
-    cout << endl;
-
-    cout << "target->followers: " << endl;
-    for(auto i : target->followers)
-    {
-        cout << i->get_username() << " ";
-    }
 
     QMessageBox q;
     q.setText(QString::fromStdString(target->get_username()) + "unfollowed!");
@@ -505,7 +272,7 @@ string user::get_birthday()
 {
     stringstream birth;
     string b;
-    
+
     birth << this->birthday.year << '/' <<  this->birthday.month << '/' << this->birthday.day;
     birth >> b;
 
@@ -523,26 +290,46 @@ void user::save_in_file()
     output.open("Tweets.txt", ios::app);
 
     if(this->copytweet.size() != 0)
-    {   
+    {
         output << this ->get_username()<<endl;
-            
+
 
         for(auto i : this->copytweet)
         {
             output << i.first << ": " << i.second.get_post() << endl << i.second.get_date() << endl << "likes: ";
 
             for(int j = 0; j < i.second.show_likes(); j++)
-            {   
+            {
                 output << i.second.get_likes(j) << " ";
             }
 
             output << '\n' << "----\n";
 
+            output << "mentions: " << endl;
+
+            for(int j = 0; j < i.second.get_mentions(); j++)
+            {
+                output << i.second.get_mentions(j).get_post() << endl;
+                output << i.second.get_mentions(j).get_date() << endl;
+                output << "likes: ";
+
+                for(int k = 0; k  < i.second.get_mention_like(j); k++)
+                {
+                    output << i.second.get_mentions(j).get_mention_likers(k) << " ";
+                }
+
+                output << "\n&&&&\n";
+
+
+            }
+
+            output << "====\n";
+
         }
 
         output <<"****\n";
 
-        
+
         output.close();
     }
 
@@ -572,9 +359,40 @@ bool user::check_follow(user* target)
     }
 }
 
+void user::set_mention(string post, string date, int index)
+{
+    this->copytweet[index].set_mention(post, date);
+}
+
 void user::set_image(string image)
 {
     this->image = image;
+}
+
+void user::mention_like(user* target, int numbertweet, int indexmention)
+{
+    target->copytweet[numbertweet].mention_like(this, indexmention);
+}
+// for like when we read from file
+
+void user::fmention_like(user* target, int numbertweet, int indexmention)
+{
+    target->copytweet[numbertweet].fmention_like(this, indexmention);
+}
+
+unsigned int user::get_mention_like(int numbertweet, int indexmention)
+{
+    return this->copytweet[numbertweet].get_mention_like(indexmention);
+}
+
+bool user::check_mention(int indxtweet, int indxmention)
+{
+    if(this->copytweet[indxtweet].get_mention_size() >= indxmention)
+    {
+        return 1;
+    }
+
+    else return 0;
 }
 
 

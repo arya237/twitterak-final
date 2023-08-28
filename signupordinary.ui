@@ -99,7 +99,7 @@ color: rgb(214, 214, 214);
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(0, 66, 198);</string>
+      <string notr="true">color: rgb(214, 214, 214);</string>
      </property>
      <property name="text">
       <string>signup</string>
@@ -160,7 +160,8 @@ color: rgb(214, 214, 214);
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 66, 198);
+      <string notr="true">background-color: rgb(68, 68, 68);
+color: rgb(214, 214, 214);
 </string>
      </property>
      <property name="text">
@@ -213,7 +214,8 @@ color: rgb(214, 214, 214);
       <enum>Qt::DefaultContextMenu</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 66, 198);</string>
+      <string notr="true">background-color: rgb(68, 68, 68);
+color: rgb(214, 214, 214);</string>
      </property>
      <property name="text">
       <string>import profile image</string>

@@ -51,9 +51,9 @@ void anonymous::set_likes(user* currentuser, user* target, int index)
     {
         QMessageBox q;
 
-        if(target->copytweet[index].check_like(currentuser))
+        if(target->get_tweet(index)->check_like(currentuser))
         {
-            target->copytweet[index].set_likes(currentuser);
+            target->get_tweet(index)->set_likes(currentuser);
             q.setText("liked!");
             q.setWindowTitle("like");
             q.exec();

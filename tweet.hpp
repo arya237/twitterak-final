@@ -1,4 +1,4 @@
-#ifndef TWEET_HPP
+﻿#ifndef TWEET_HPP
 #define TWEET_HPP
 
 #include <iostream>
@@ -21,13 +21,14 @@ struct date
 
 
 class tweet
-{   
-    
+{
+
     private:
     string post;
     string date;
-    vector<user*> likes;
-    
+    vector <user*> likes;
+    vector <tweet> mention;
+
     public:
     bool check_like(user *currentuser);
     void set_post(string post);
@@ -40,7 +41,15 @@ class tweet
     string get_likes(int index);
     void set_date(string date);
     string get_date(){return date;}
-    
+    void set_mention(string, string);
+    int get_mentions(){return this->mention.size();}
+    tweet get_mentions(int);
+    int get_mention_size(){return this->mention.size();}
+    void mention_like(user* target, int index);
+    unsigned int get_mention_like(int index);
+    string get_mention_likers(int indexliker);
+    void fmention_like(user* target, int index);
+
 };
 
 #endif
