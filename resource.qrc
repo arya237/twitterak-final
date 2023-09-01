@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Assest/icons8-theme-50.png</file>
+        <file>Assest/icons8-theme-24.png</file>
+        <file>Assest/icons8-theme-30.png</file>
+    </qresource>
+</RCC>

@@ -275,7 +275,7 @@ color: rgb(187, 187, 187);</string>
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>360</y>
+       <y>390</y>
        <width>61</width>
        <height>155</height>
       </rect>
@@ -387,7 +387,7 @@ color: rgb(187, 187, 187);</string>
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>200</y>
+       <y>150</y>
        <width>61</width>
        <height>61</height>
       </rect>
@@ -474,10 +474,68 @@ color: rgb(187, 187, 187);</string>
       </item>
      </layout>
     </widget>
+    <widget class="QFrame" name="frame_theme">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>250</y>
+       <width>61</width>
+       <height>103</height>
+      </rect>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>200</width>
+       <height>160</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_11">
+      <item>
+       <widget class="QLabel" name="lbl_theme">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>Assest/icons8-theme-30.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBox">
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>Dark</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>blue</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
     <zorder>frame_btn_calender</zorder>
     <zorder>frame_btn_rightmenu</zorder>
     <zorder>frame_setting</zorder>
     <zorder>frame_btnprofile</zorder>
+    <zorder>frame_theme</zorder>
    </widget>
    <widget class="QGroupBox" name="box_profile">
     <property name="geometry">

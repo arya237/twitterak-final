@@ -228,7 +228,9 @@ void menu::on_btn_leftmenu_clicked()
 
         ui->btn_calender->setText("calender");
         ui->btn_calender->setFont(*font);
-
+        
+        ui->lbl_theme->setText("select theme");
+        ui->lbl_theme->setFont(*font);
 
         ui->box_tweets->setGeometry(151, 65, 911, 721);
 
@@ -244,6 +246,7 @@ void menu::on_btn_leftmenu_clicked()
         ui->frame_btnprofile->resize(61, 61);
         ui->frame_setting->resize(61, 155);
         ui->frame_btn_calender->resize(61, 51);
+        ui->frame_theme->resize(61, 103);
 
          ui->btn_setting->setText("");
          ui->btn_profile->setText("");
