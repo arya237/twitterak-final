@@ -369,6 +369,11 @@ void user::set_image(string image)
     this->image = image;
 }
 
+void user::set_status(string status)
+{
+    this->status = status;
+}
+
 void user::mention_like(user* target, int numbertweet, int indexmention)
 {
     target->copytweet[numbertweet].mention_like(this, indexmention);
@@ -378,6 +383,27 @@ void user::mention_like(user* target, int numbertweet, int indexmention)
 void user::fmention_like(user* target, int numbertweet, int indexmention)
 {
     target->copytweet[numbertweet].fmention_like(this, indexmention);
+}
+
+void user::follow_private(user *target)
+{
+    target->messages.push_back(this);
+}
+
+string user::show_notif(int index)
+{
+    return this->messages[index]->get_username();
+}
+
+void user::delete_notif(string username)
+{
+    for(int i = 0; i < this->messages.size(); i++)
+    {
+        if(this->messages[i]->get_username() == username)
+        {
+            this->messages.erase(this->messages.begin() + i);
+        }
+    }
 }
 
 unsigned int user::get_mention_like(int numbertweet, int indexmention)

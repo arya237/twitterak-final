@@ -50,6 +50,7 @@ void showprofile::set()
     if(follow)
     {
         ui->btn_follow->setText("unfollow");
+        ui->btn_follow->setIcon(QIcon());
     }
 
     else if(!follow)

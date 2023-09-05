@@ -13,6 +13,7 @@
 #include "QDebug"
 #include "QTimer"
 #include "QImage"
+#include "notifactions.h"
 
 
 
@@ -70,6 +71,25 @@ void menu::store_follower_following_infile()
 
             ufile << "\n";
             ufile << "--------------------";
+        }
+
+
+        if(i.second->show_notif_size() != 0)
+        {
+            if(i.second->display_followers() == 0)
+            {
+                ufile << i.second->get_username() << '\n';
+            }
+
+            ufile << "messages: ";
+
+            for(int j = 0; j < i.second->show_notif_size(); j++)
+            {
+                ufile << i.second->show_notif(j) << " ";
+            }
+
+            ufile << "\n";
+            ufile << "--------------------\n";
         }
     }
 
@@ -229,12 +249,15 @@ void menu::on_btn_leftmenu_clicked()
         ui->btn_calender->setText("calender");
         ui->btn_calender->setFont(*font);
 
+        ui->btn_theme->setText("select theme");
+        ui->btn_theme->setFont(*font);
 
         ui->box_tweets->setGeometry(151, 65, 911, 721);
 
         ui->btn_logout->show();
         ui->btn_editprofile->show();
         ui->btn_deleteaccount->show();
+        ui->comboBox->show();
     }
 
     else
@@ -244,19 +267,19 @@ void menu::on_btn_leftmenu_clicked()
         ui->frame_btnprofile->resize(61, 61);
         ui->frame_setting->resize(61, 155);
         ui->frame_btn_calender->resize(61, 51);
+        ui->frame_theme->resize(61, 103);
 
          ui->btn_setting->setText("");
          ui->btn_profile->setText("");
          ui->btn_calender->setText("");
+         ui->btn_theme->setText("");
 
          ui->box_tweets->setGeometry(71, 65, 911, 721);
 
         ui->btn_logout->hide();
         ui->btn_editprofile->hide();
         ui->btn_deleteaccount->hide();
-
-
-
+        ui->comboBox->hide();
     }
 }
 
@@ -357,8 +380,23 @@ void menu::on_btn_like_clicked()
         if(check_user(username) && checknum(index, users[username]) && users[username]->check_mention(index, indexmention) )
         {
 
-            currentuser->mention_like(users[username], index, indexmention);
-            stor_tweet_infile();
+            if(users[username]->get_status() == "private")
+            {
+                if(users[username]->check_follow(currentuser))
+                {
+                    currentuser->mention_like(users[username], index, indexmention);
+                    stor_tweet_infile();
+                }
+
+                else q.warning(this, "liking", "this page is private and you haven't follow it!");
+            }
+
+            else
+            {
+                currentuser->mention_like(users[username], index, indexmention);
+                stor_tweet_infile();
+            }
+
 
         }
 
@@ -439,6 +477,8 @@ void menu::setinformation()
     fill_tweetswidget();
     fill_followingswidget();
 
+    ui->comboBox->hide();
+
 }
 
 void menu::fill_followingswidget()
@@ -461,7 +501,8 @@ void menu::fill_tweetswidget()
         for(int i = 1; i <= currentuser->get_tweet(); i++)
         {
             QString item =  QString::number((i)) + QString::fromStdString((": " + currentuser->get_tweet(i)->get_post()) + '\n'
-            + currentuser->get_tweet(i)->get_date() + '\n') + QString::fromStdString("likes: ") + QString::number(currentuser->get_tweet(i)->show_likes());
+            + currentuser->get_tweet(i)->get_date() + '\n') + QString::fromStdString("likes: ") + QString::number(currentuser->get_tweet(i)->show_likes())
+            + "\n-----------------------------";
 
             ui->listWidget_mytweets->addItem(item);
         }
@@ -490,16 +531,40 @@ void menu::on_btn_showprofile_clicked()
 
     if(check_user(username))
     {
-        showprofile *p = new showprofile(users[username], currentuser, users);
-        p->show();
-
-        ui->listWidget_followings->clear();
-
-        for(int i = 0; i < currentuser->display_followings(0); i++)
+        if(users[username]->get_status() == "private")
         {
-            ui->listWidget_followings->addItem(QString::fromStdString(currentuser->get_followings(i)));
+            if(users[username]->check_follow(currentuser))
+            {
+                showprofile *p = new showprofile(users[username], currentuser, users);
+                p->show();
 
+                ui->listWidget_followings->clear();
+
+                for(int i = 0; i < currentuser->display_followings(0); i++)
+                {
+                    ui->listWidget_followings->addItem(QString::fromStdString(currentuser->get_followings(i)));
+
+                }
+            }
+
+            else QMessageBox::warning(this, "show profile", "this page is private and you haven't follow this page!");
         }
+
+        else
+        {
+            showprofile *p = new showprofile(users[username], currentuser, users);
+            p->show();
+
+            ui->listWidget_followings->clear();
+
+            for(int i = 0; i < currentuser->display_followings(0); i++)
+            {
+                ui->listWidget_followings->addItem(QString::fromStdString(currentuser->get_followings(i)));
+
+            }
+        }
+
+
     }
 
     else QMessageBox::warning(this, "profile", "this user not found!");
@@ -551,10 +616,21 @@ void menu::on_btn_follow_clicked()
 
     if(check_user(username))
     {
-        currentuser->add_following(users[username]);
-        store_follower_following_infile();
+        if(users[username]->get_status() == "public")
+        {
+            currentuser->add_following(users[username]);
+            store_follower_following_infile();
 
-        fill_followingswidget();
+            fill_followingswidget();
+        }
+
+        else if(users[username]->get_status() == "private")
+        {
+            currentuser->follow_private(users[username]);
+            q.information(this, "follow", "your request send!");
+            store_follower_following_infile();
+        }
+
 
     }
 
@@ -687,4 +763,44 @@ void menu::on_listWidget_showusersandhastags_itemClicked(QListWidgetItem *item)
 
         fill_followingswidget();
     }
+}
+
+void menu::on_comboBox_activated(const QString &arg1)
+{
+    if(ui->comboBox->currentText() == "blue")
+    {
+        ui->menu_box->setStyleSheet("background-color: #15191f");
+        ui->frame_bottommenu->setStyleSheet("background-color: #232933");
+        ui->frame_upmenu->setStyleSheet("background-color: #232933");
+        ui->frame_search->setStyleSheet("background-color: #232933");
+        ui->le_search->setStyleSheet("background-color: #0c0e12; color: #dcdee4; border: none; border-radius: 10px");
+    }
+
+    if(ui->comboBox->currentText() == "Dark")
+    {
+        ui->menu_box->setStyleSheet("background-color: #2b2b2b");
+        ui->frame_bottommenu->setStyleSheet("background-color: #444444");
+        ui->frame_upmenu->setStyleSheet("background-color: #444444");
+        ui->frame_search->setStyleSheet("background-color: #444444");
+        ui->le_search->setStyleSheet("background-color: rgb(12, 14, 18); color: rgb(250, 250, 250); border: none; border-radius: 10px");
+    }
+}
+
+void menu::on_rbtn_hashtags_clicked()
+{
+    ui->listWidget_showusersandhastags->clear();
+
+    for(auto i: hashtags)
+    {
+        for(auto j : i.second)
+        {
+            ui->listWidget_showusersandhastags->addItem(QString::fromStdString(j->get_post()));
+        }
+    }
+}
+
+void menu::on_pushButton_clicked()
+{
+    notifactions *l = new notifactions(users, currentuser);
+    l->show();
 }

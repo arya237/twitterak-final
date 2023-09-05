@@ -21,8 +21,8 @@ class twitterak
     public: 
 
         void run();
-        void signup(string,string,string,string,string,string,string,string,string);
-        void ordsignup(string,string,string,string,string,string,string,string,string,string);
+        void signup(string,string,string,string,string,string,string,string,string, string);
+        void ordsignup(string,string,string,string,string,string,string,string,string,string, string);
         void anonymoussignup(string,string);
         void login(string,string);
         void inaccount(user* currentuser);

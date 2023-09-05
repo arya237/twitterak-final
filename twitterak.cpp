@@ -33,7 +33,7 @@ tweet temp;
 //========================================================================= signingup
 //Sign up function which asks for users information. 
 
-void twitterak::signup(string username,string name,string country,string phonenumber,string link,string password,string biography, string header, string profile)
+void twitterak::signup(string username,string name,string country,string phonenumber,string link,string password,string biography, string header, string profile, string status)
 {
     currentuser = new orguser;
 
@@ -58,6 +58,7 @@ void twitterak::signup(string username,string name,string country,string phonenu
     currentuser->set_image(profile);
     currentuser->set_phonenumber(phonenumber);
     currentuser->set_header(header);
+    currentuser->set_status(status);
 
     //saving current user information in users map.
     users[currentuser->get_username()] = currentuser;
@@ -72,7 +73,7 @@ void twitterak::signup(string username,string name,string country,string phonenu
 
 }
 
-void twitterak::ordsignup(string username,string name,string country,string phonenumber,string link,string password,string biography, string birthday, string header, string profile)
+void twitterak::ordsignup(string username,string name,string country,string phonenumber,string link,string password,string biography, string birthday, string header, string profile, string status)
 {
         //Some validations done in user header file.
     currentuser = new ordinaryuser;
@@ -89,6 +90,7 @@ void twitterak::ordsignup(string username,string name,string country,string phon
     currentuser->set_birthday(seperate_time(birthday));
     currentuser->set_phonenumber(phonenumber);
     currentuser->set_image(profile);
+    currentuser->set_status(status);
 
     //saving current user information in users map.
 
@@ -1036,6 +1038,8 @@ void twitterak::store_user_infile()
         ufile << "header: " << "_" << '\n';
 
         else ufile << "header: " << i.second->get_header() << '\n';
+
+        ufile << "status: " << i.second->get_status() << '\n';
         
         ufile << "=======================================";
     }
@@ -1079,7 +1083,7 @@ date twitterak::seperate_time(string birth)
 
 void twitterak::read_file()
 {
-    string username, name, bio, link, birthday, phone, password, header, country;
+    string username, name, bio, link, birthday, phone, password, header, country, status;
 
     fstream ufile;
     ufile.open("user.txt", ios::in);
@@ -1097,6 +1101,7 @@ void twitterak::read_file()
             ufile >> phone >> phone;
             ufile >> password >> password;
             ufile >> header >> header;
+            ufile >> status >> status;
 
             if(username[username.size() - 1] == 'A')
             {
@@ -1143,6 +1148,8 @@ void twitterak::read_file()
 
             if(header != "_")
             currentuser->set_header(header);
+
+            currentuser->set_status(status);
 
             users[currentuser->get_username()] = currentuser;
            
@@ -1301,6 +1308,26 @@ void twitterak::store_follower_following_infile()
             ufile << "\n";    
             ufile << "--------------------";
         }
+
+        flag = true;
+
+        if(i.second->show_notif_size() != 0)
+        {
+            if(flag)
+            {
+                ufile << i.second->get_username() << '\n';
+                flag = 0;
+            }
+
+            else ufile << '\n' << i.second->get_username() << '\n';
+
+            ufile << "messages: ";
+
+            for(int j = 0; j < i.second->show_notif_size(); j++)
+            {
+                ufile << i.second->show_notif(j) << " ";
+            }
+        }
     }
 
     ufile.close();
@@ -1317,7 +1344,7 @@ void twitterak::get_follower_following_infile()
         while(!ufile.eof())
         {   
             
-            string followers, followings, username;
+            string followers, followings, username, message;
             ufile >> username;
 
             if(username == "")
@@ -1327,19 +1354,46 @@ void twitterak::get_follower_following_infile()
 
             ufile >> followings;
 
+//            q.setText("followings: " + QString::fromStdString(followings));
+//            q.exec();
+
+            if(followings != "messages:")
+            {
+                while (1)
+                {
+                    ufile >> followers;
+
+//                    q.setText("followers: " + QString::fromStdString(followers));
+//                    q.exec();
+
+                    if(followers == "messages:")
+                    {
+                        break;
+                    }
+
+                    users[followers]->fadd_following(users[username]);
+
+                }
+            }
+
+
+//            ufile >> message;
 
             while (1)
-            {   
-                ufile >> followers;
+            {
+                ufile >> message;
 
-                if(followers == "--------------------")
-                {   
+//                q.setText("message: " + QString::fromStdString(message));
+//                q.exec();
+
+                if(message == "--------------------")
+                {
                     break;
                 }
 
-                users[followers]->fadd_following(users[username]);
+                users[message]->follow_private(users[username]);
 
-            }     
+            }
         }
 
         ufile.close();

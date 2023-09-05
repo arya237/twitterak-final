@@ -23,6 +23,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     menu.cpp \
+    notifactions.cpp \
     ordinaryuser.cpp \
     orguser.cpp \
     showprofile.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     login.h \
     mainwindow.h \
     menu.h \
+    notifactions.h \
     ordinaryuser.hpp \
     orguser.hpp \
     showprofile.h \
@@ -56,6 +58,7 @@ FORMS += \
     login.ui \
     mainwindow.ui \
     menu.ui \
+    notifactions.ui \
     showprofile.ui \
     signupanonymous.ui \
     signupordinary.ui \

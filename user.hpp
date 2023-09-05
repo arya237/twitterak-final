@@ -30,10 +30,12 @@ class user
     string phonenumber;
     int numbertweet = 0;
     string image;
+    string status;
     map <int, tweet> copytweet;
 
 
     protected:
+    vector <user*> messages;
     vector <user*> followers;
     vector <user*> followings;
 
@@ -51,6 +53,7 @@ class user
     virtual void set_country(string country);
     virtual void set_biography(string biography);
     virtual void set_image(string image);
+    virtual void set_status(string status);
 
 //============================================================================== getters
 
@@ -64,6 +67,7 @@ class user
     virtual string get_phonenumber(){return phonenumber;}
     virtual string get_biography(){return biography;}
     virtual string get_birthday();
+    virtual string get_status(){return status;}
     virtual string GetPost();
     virtual string get_followers(int );
     virtual string get_followings(int );
@@ -93,6 +97,10 @@ class user
     virtual bool check_mention(int indxtweet, int indxmention);
     virtual bool check(int index);
     virtual void fmention_like(user* target, int numbertweet, int indexmention);
+    virtual void follow_private(user* target);
+    virtual string show_notif(int);
+    virtual unsigned long long int show_notif_size(){return messages.size();}
+    virtual void delete_notif(string);
 
 
 };

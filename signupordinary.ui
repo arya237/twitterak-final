@@ -108,7 +108,7 @@ color: rgb(214, 214, 214);
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>300</x>
        <y>30</y>
        <width>70</width>
        <height>70</height>
@@ -515,6 +515,57 @@ background-color: transparent;
       <string>username is invalid!</string>
      </property>
     </widget>
+    <widget class="QRadioButton" name="rbtn_private">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>390</y>
+       <width>95</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Dubai</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(214, 214, 214);</string>
+     </property>
+     <property name="text">
+      <string>private</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rtbn_public">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>390</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Dubai</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(214, 214, 214);</string>
+     </property>
+     <property name="text">
+      <string>public</string>
+     </property>
+    </widget>
     <zorder>ln_link</zorder>
     <zorder>ln_name</zorder>
     <zorder>ln_country</zorder>
@@ -535,6 +586,8 @@ background-color: transparent;
     <zorder>label_6</zorder>
     <zorder>lbl_warning</zorder>
     <zorder>lbl_warningusername</zorder>
+    <zorder>rbtn_private</zorder>
+    <zorder>rtbn_public</zorder>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

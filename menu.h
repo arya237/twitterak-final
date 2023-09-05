@@ -65,6 +65,12 @@ private slots:
 
     void on_listWidget_showusersandhastags_itemClicked(QListWidgetItem *item);
 
+    void on_comboBox_activated(const QString &arg1);
+
+    void on_rbtn_hashtags_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::menu *ui;
     user* currentuser;

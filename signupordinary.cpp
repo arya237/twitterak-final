@@ -34,7 +34,7 @@ void SignupOrdinary::on_btn_signup_clicked()
     t.read_hashtag_fromfile();
 
 
-    string username, name, password, link, country,biography, phonenumber, birthday, header;
+    string username, name, password, link, country,biography, phonenumber, birthday, header, status;
     username = ui->ln_username->text().toStdString();
     name = ui->ln_name->text().toStdString();
     password = ui->ln_password->text().toStdString();
@@ -45,9 +45,16 @@ void SignupOrdinary::on_btn_signup_clicked()
     birthday = ui->dateEdit->text().toStdString();
     header = ui->le_header->text().toStdString();
 
+    if(ui->rtbn_public->isChecked())
+        status = "public";
+
+    else if(ui->rbtn_private->isChecked())
+        status = "private";
+
+
 
     this->close();
-    t.ordsignup(username,name,country,phonenumber,link,password,biography, birthday, header, profile);
+    t.ordsignup(username,name,country,phonenumber,link,password,biography, birthday, header, profile, status);
 }
 
 
